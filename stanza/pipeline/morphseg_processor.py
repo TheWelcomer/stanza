@@ -4,8 +4,8 @@ from stanza.pipeline._constants import MORPHSEG, TOKENIZE
 
 @register_processor(name=MORPHSEG)
 class MorphSegProcessor(UDProcessor):
-    PROVIDES_DEFAULT = set([MORPHSEG])
-    REQUIRES_DEFAULT = set([TOKENIZE])
+    PROVIDES_DEFAULT = {MORPHSEG}
+    REQUIRES_DEFAULT = {TOKENIZE}
 
     def __init__(self, config, pipeline, device):
         self._config = config
@@ -57,7 +57,7 @@ class MorphSegProcessor(UDProcessor):
         try:
             # Prepare input for morphseg (it expects normalized, lowercased character lists)
             word_char_lists = [
-                list(self._segmenter._normalize_for_morphology(word))
+                list(self._segmenter.normalize_for_morphology(word))
                 for word in all_words
             ]
 

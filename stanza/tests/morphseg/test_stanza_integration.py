@@ -7,10 +7,6 @@ import pytest
 import stanza
 from stanza.models.common.doc import Document
 
-stanza.download('fr')
-stanza.download('cs')
-stanza.download('it')
-
 
 class TestMorphSegProcessor:
     """Tests for the MorphSeg processor in Stanza pipeline"""
