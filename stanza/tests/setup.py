@@ -50,7 +50,7 @@ stanza.download(lang='multilingual', model_dir=models_dir, logging_level='info')
 
 logger.info("DOWNLOADING MODELS FOR MORPHSEG TESTS")
 
-morphseg_langs = ['cs', 'es', 'hu', 'it', 'mn', 'ru']
+morphseg_langs = ['en', 'es', 'ru', 'fr', 'it', 'cs', 'hu']
 for lang in morphseg_langs:
     try:
         stanza.download(lang=lang, model_dir=models_dir, processors='tokenize', logging_level='info')
