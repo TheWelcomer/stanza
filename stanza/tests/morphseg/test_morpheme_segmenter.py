@@ -5,6 +5,7 @@ Tests for MorphemeSegmenter class
 import pytest
 from morphseg import MorphemeSegmenter
 
+pytestmark = [pytest.mark.travis, pytest.mark.pipeline]
 
 class TestMorphemeSegmenter:
 

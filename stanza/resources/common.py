@@ -17,7 +17,7 @@ import zipfile
 from tqdm.auto import tqdm
 
 from stanza.utils.helper_func import make_table
-from stanza.pipeline._constants import TOKENIZE, MWT, POS, LEMMA, DEPPARSE, NER, SENTIMENT, MORPHSEG
+from stanza.pipeline._constants import TOKENIZE, MWT, POS, LEMMA, DEPPARSE, NER, SENTIMENT
 from stanza.pipeline.registry import PIPELINE_NAMES, PROCESSOR_VARIANTS
 from stanza.resources.default_packages import PACKAGES
 from stanza._version import __resources_version__

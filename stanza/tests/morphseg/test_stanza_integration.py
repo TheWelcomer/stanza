@@ -7,6 +7,7 @@ import pytest
 import stanza
 from stanza.models.common.doc import Document
 
+pytestmark = [pytest.mark.travis, pytest.mark.pipeline]
 
 class TestMorphSegProcessor:
     """Tests for the MorphSeg processor in Stanza pipeline"""

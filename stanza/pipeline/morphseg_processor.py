@@ -54,35 +54,27 @@ class MorphSegProcessor(UDProcessor):
         if not all_words:
             return document
 
-        try:
-            # Prepare input for morphseg (it expects normalized, lowercased character lists)
-            word_char_lists = [
-                list(self._segmenter.normalize_for_morphology(word))
-                for word in all_words
-            ]
+        # Prepare input for morphseg (it expects normalized, lowercased character lists)
+        word_char_lists = [
+            list(self._segmenter.normalize_for_morphology(word))
+            for word in all_words
+        ]
 
-            # Batch predict using the internal sequence_labeller
-            predictions = self._segmenter.sequence_labeller.predict(sources=word_char_lists)
+        # Batch predict using the internal sequence_labeller
+        predictions = self._segmenter.sequence_labeller.predict(sources=word_char_lists)
 
-            # Extract segmentations from predictions
-            from morphseg.training.oracle import rules2sent
-            segmentations = [
-                rules2sent(
-                    source=[align_pos.symbol for align_pos in pred.alignment],
-                    actions=pred.prediction
-                ).split(' @@')  # Split by morphseg's default delimiter
-                for pred in predictions
-            ]
+        # Extract segmentations from predictions
+        from morphseg.training.oracle import rules2sent
+        segmentations = [
+            rules2sent(
+                source=[align_pos.symbol for align_pos in pred.alignment],
+                actions=pred.prediction
+            ).split(' @@')  # Split by morphseg's default delimiter
+            for pred in predictions
+        ]
 
-            # Assign segmentations back to words
-            for (sent_idx, word_idx), seg in zip(word_mapping, segmentations):
-                document.sentences[sent_idx].words[word_idx].morphemes = seg
-
-        except Exception as e:
-            print(f"Warning: Morpheme segmentation failed: {e}")
-            # Fallback: assign unsegmented words
-            for sent_idx, word_idx in word_mapping:
-                word = document.sentences[sent_idx].words[word_idx]
-                word.morphemes = [word.text]
+        # Assign segmentations back to words
+        for (sent_idx, word_idx), seg in zip(word_mapping, segmentations):
+            document.sentences[sent_idx].words[word_idx].morphemes = seg
 
         return document

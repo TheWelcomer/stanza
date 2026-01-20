@@ -5,6 +5,7 @@ Shared pytest fixtures and configuration
 import pytest
 from morphseg import MorphemeSegmenter
 
+pytestmark = [pytest.mark.travis, pytest.mark.pipeline]
 
 @pytest.fixture(scope="session")
 def english_segmenter():
